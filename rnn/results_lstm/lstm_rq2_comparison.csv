@@ -1,0 +1,4 @@
+setting,test_accuracy,test_macro_f1,val_macro_f1,best_epoch
+Output only (RQ1),0.7993,0.7904,0.7617,15
+Input only,0.3478,0.3453,0.4224,1
+Input + Output,0.7926,0.7836,0.7497,7

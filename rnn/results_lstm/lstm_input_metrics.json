@@ -1,0 +1,144 @@
+{
+  "model": "BiLSTM",
+  "mode": "input",
+  "labels": [
+    "Claude",
+    "GPT",
+    "Gemini"
+  ],
+  "best_epoch": 1,
+  "val_macro_f1": 0.42238247538375256,
+  "test_accuracy": 0.34782608695652173,
+  "test_macro_f1": 0.34528918189048907,
+  "test_loss": 1.1004695246450877,
+  "classification_report": {
+    "Claude": {
+      "precision": 0.4166666666666667,
+      "recall": 0.30701754385964913,
+      "f1-score": 0.35353535353535354,
+      "support": 114.0
+    },
+    "GPT": {
+      "precision": 0.2866666666666667,
+      "recall": 0.48863636363636365,
+      "f1-score": 0.36134453781512604,
+      "support": 88.0
+    },
+    "Gemini": {
+      "precision": 0.4,
+      "recall": 0.26804123711340205,
+      "f1-score": 0.32098765432098764,
+      "support": 97.0
+    },
+    "accuracy": 0.34782608695652173,
+    "macro avg": {
+      "precision": 0.3677777777777778,
+      "recall": 0.3545650482031382,
+      "f1-score": 0.34528918189048907,
+      "support": 299.0
+    },
+    "weighted avg": {
+      "precision": 0.3729988851727982,
+      "recall": 0.34782608695652173,
+      "f1-score": 0.34527475618694714,
+      "support": 299.0
+    }
+  },
+  "confusion_matrix": [
+    [
+      35,
+      61,
+      18
+    ],
+    [
+      24,
+      43,
+      21
+    ],
+    [
+      25,
+      46,
+      26
+    ]
+  ],
+  "vocab_size": 5367,
+  "trainable_params": 1083524,
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 1.11601446946462,
+      "train_acc": 0.34125,
+      "train_f1": 0.33861787382366226,
+      "val_loss": 1.091142213621805,
+      "val_acc": 0.42524916943521596,
+      "val_f1": 0.42238247538375256,
+      "lr": 0.002
+    },
+    {
+      "epoch": 2,
+      "train_loss": 1.1030739148457844,
+      "train_acc": 0.34708333333333335,
+      "train_f1": 0.34644918935302665,
+      "val_loss": 1.0891263104752449,
+      "val_acc": 0.3953488372093023,
+      "val_f1": 0.3279220779220779,
+      "lr": 0.002
+    },
+    {
+      "epoch": 3,
+      "train_loss": 1.0932284466425577,
+      "train_acc": 0.38,
+      "train_f1": 0.37229081128110275,
+      "val_loss": 1.086159152445999,
+      "val_acc": 0.3953488372093023,
+      "val_f1": 0.39339182966633945,
+      "lr": 0.001
+    },
+    {
+      "epoch": 4,
+      "train_loss": 1.0702619099617003,
+      "train_acc": 0.41291666666666665,
+      "train_f1": 0.4093122735633769,
+      "val_loss": 1.114315341081334,
+      "val_acc": 0.3654485049833887,
+      "val_f1": 0.3343487858719647,
+      "lr": 0.001
+    },
+    {
+      "epoch": 5,
+      "train_loss": 1.0443918426831564,
+      "train_acc": 0.4375,
+      "train_f1": 0.43227367335795014,
+      "val_loss": 1.1238340483947449,
+      "val_acc": 0.3654485049833887,
+      "val_f1": 0.36256699985513546,
+      "lr": 0.0005
+    }
+  ],
+  "hyperparameters": {
+    "data_dir": "data",
+    "out_dir": "results_lstm",
+    "mode": "all",
+    "max_input_len": 128,
+    "max_output_len": 512,
+    "min_freq": 2,
+    "max_vocab": 30000,
+    "keep_case": false,
+    "emb_dim": 128,
+    "hidden": 128,
+    "layers": 1,
+    "dropout": 0.4,
+    "unidirectional": false,
+    "batch_size": 32,
+    "lr": 0.002,
+    "weight_decay": 0.0001,
+    "clip": 1.0,
+    "epochs": 15,
+    "patience": 4,
+    "seed": 42,
+    "no_plots": false
+  },
+  "n_train": 2400,
+  "n_val": 301,
+  "n_test": 299
+}

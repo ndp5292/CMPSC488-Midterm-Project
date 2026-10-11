@@ -1,0 +1,113 @@
+train 2400 | val 301 | test 299
+train label counts: {'GPT': 808, 'Gemini': 807, 'Claude': 785}
+
+======================================================================
+LSTM | mode = output
+======================================================================
+classes: ['Claude', 'GPT', 'Gemini']
+vocab size: 16255 | train seq len median 258, 95th pct 512, max 512
+trainable parameters: 2,477,188 | device: cpu
+epoch  1 | train loss 1.0468 acc 0.440 f1 0.440 | val loss 0.9070 acc 0.595 f1 0.577 | 164.7s
+epoch  2 | train loss 0.8342 acc 0.625 f1 0.623 | val loss 0.7759 acc 0.658 f1 0.658 | 163.8s
+epoch  3 | train loss 0.6344 acc 0.732 f1 0.732 | val loss 0.6244 acc 0.728 f1 0.726 | 156.1s
+epoch  4 | train loss 0.5246 acc 0.772 f1 0.773 | val loss 0.6483 acc 0.701 f1 0.694 | 160.4s
+epoch  5 | train loss 0.4678 acc 0.810 f1 0.811 | val loss 0.6509 acc 0.741 f1 0.737 | 157.8s
+epoch  6 | train loss 0.3861 acc 0.849 f1 0.850 | val loss 0.6960 acc 0.748 f1 0.744 | 158.8s
+epoch  7 | train loss 0.3174 acc 0.874 f1 0.875 | val loss 0.8166 acc 0.718 f1 0.710 | 159.8s
+epoch  8 | train loss 0.2742 acc 0.900 f1 0.900 | val loss 0.9089 acc 0.748 f1 0.748 | 161.8s
+epoch  9 | train loss 0.2235 acc 0.923 f1 0.924 | val loss 0.8034 acc 0.751 f1 0.748 | 160.9s
+epoch 10 | train loss 0.1952 acc 0.933 f1 0.934 | val loss 1.0341 acc 0.741 f1 0.734 | 158.5s
+epoch 11 | train loss 0.1028 acc 0.963 f1 0.963 | val loss 1.0629 acc 0.757 f1 0.753 | 157.5s
+epoch 12 | train loss 0.0804 acc 0.970 f1 0.971 | val loss 1.2255 acc 0.761 f1 0.756 | 158.4s
+epoch 13 | train loss 0.0812 acc 0.973 f1 0.973 | val loss 1.1683 acc 0.761 f1 0.758 | 157.9s
+epoch 14 | train loss 0.0800 acc 0.972 f1 0.972 | val loss 1.4634 acc 0.741 f1 0.733 | 161.3s
+epoch 15 | train loss 0.0687 acc 0.979 f1 0.979 | val loss 1.1818 acc 0.761 f1 0.762 | 159.1s
+
+best epoch 15 (val macro-F1 0.7617)
+TEST  accuracy 0.7993 | macro-F1 0.7904
+              precision    recall  f1-score   support
+
+      Claude     0.9722    0.9211    0.9459       114
+         GPT     0.6701    0.7386    0.7027        88
+      Gemini     0.7340    0.7113    0.7225        97
+
+    accuracy                         0.7993       299
+   macro avg     0.7921    0.7903    0.7904       299
+weighted avg     0.8060    0.7993    0.8019       299
+
+confusion matrix (rows = true, cols = predicted): ['Claude', 'GPT', 'Gemini']
+[[105   6   3]
+ [  1  65  22]
+ [  2  26  69]]
+
+======================================================================
+LSTM | mode = input
+======================================================================
+classes: ['Claude', 'GPT', 'Gemini']
+vocab size: 5367 | train seq len median 21, 95th pct 128, max 128
+trainable parameters: 1,083,524 | device: cpu
+epoch  1 | train loss 1.1160 acc 0.341 f1 0.339 | val loss 1.0911 acc 0.425 f1 0.422 | 14.9s
+epoch  2 | train loss 1.1031 acc 0.347 f1 0.346 | val loss 1.0891 acc 0.395 f1 0.328 | 15.7s
+epoch  3 | train loss 1.0932 acc 0.380 f1 0.372 | val loss 1.0862 acc 0.395 f1 0.393 | 16.0s
+epoch  4 | train loss 1.0703 acc 0.413 f1 0.409 | val loss 1.1143 acc 0.365 f1 0.334 | 16.4s
+epoch  5 | train loss 1.0444 acc 0.438 f1 0.432 | val loss 1.1238 acc 0.365 f1 0.363 | 16.7s
+early stopping (no val macro-F1 improvement for 4 epochs)
+
+best epoch 1 (val macro-F1 0.4224)
+TEST  accuracy 0.3478 | macro-F1 0.3453
+              precision    recall  f1-score   support
+
+      Claude     0.4167    0.3070    0.3535       114
+         GPT     0.2867    0.4886    0.3613        88
+      Gemini     0.4000    0.2680    0.3210        97
+
+    accuracy                         0.3478       299
+   macro avg     0.3678    0.3546    0.3453       299
+weighted avg     0.3730    0.3478    0.3453       299
+
+confusion matrix (rows = true, cols = predicted): ['Claude', 'GPT', 'Gemini']
+[[35 61 18]
+ [24 43 21]
+ [25 46 26]]
+
+======================================================================
+LSTM | mode = input_output
+======================================================================
+classes: ['Claude', 'GPT', 'Gemini']
+vocab size: 17613 | train seq len median 288, 95th pct 608, max 641
+trainable parameters: 2,651,012 | device: cpu
+epoch  1 | train loss 1.0615 acc 0.412 f1 0.411 | val loss 0.9350 acc 0.551 f1 0.529 | 251.5s
+epoch  2 | train loss 0.8810 acc 0.591 f1 0.591 | val loss 0.7913 acc 0.628 f1 0.615 | 216.0s
+epoch  3 | train loss 0.6961 acc 0.693 f1 0.694 | val loss 0.7181 acc 0.678 f1 0.678 | 214.5s
+epoch  4 | train loss 0.5575 acc 0.748 f1 0.750 | val loss 0.6910 acc 0.724 f1 0.720 | 216.3s
+epoch  5 | train loss 0.4435 acc 0.814 f1 0.815 | val loss 0.8584 acc 0.694 f1 0.690 | 216.0s
+epoch  6 | train loss 0.3694 acc 0.863 f1 0.863 | val loss 0.7287 acc 0.728 f1 0.727 | 212.2s
+epoch  7 | train loss 0.2915 acc 0.885 f1 0.886 | val loss 0.8448 acc 0.751 f1 0.750 | 211.7s
+epoch  8 | train loss 0.2197 acc 0.917 f1 0.918 | val loss 1.0069 acc 0.748 f1 0.749 | 214.9s
+epoch  9 | train loss 0.1721 acc 0.939 f1 0.939 | val loss 1.1429 acc 0.718 f1 0.709 | 216.5s
+epoch 10 | train loss 0.1154 acc 0.962 f1 0.962 | val loss 1.2837 acc 0.734 f1 0.729 | 207.9s
+epoch 11 | train loss 0.0989 acc 0.965 f1 0.965 | val loss 1.5977 acc 0.701 f1 0.693 | 212.5s
+early stopping (no val macro-F1 improvement for 4 epochs)
+
+best epoch 7 (val macro-F1 0.7497)
+TEST  accuracy 0.7926 | macro-F1 0.7836
+              precision    recall  f1-score   support
+
+      Claude     0.9196    0.9035    0.9115       114
+         GPT     0.6518    0.8295    0.7300        88
+      Gemini     0.8133    0.6289    0.7093        97
+
+    accuracy                         0.7926       299
+   macro avg     0.7949    0.7873    0.7836       299
+weighted avg     0.8063    0.7926    0.7925       299
+
+confusion matrix (rows = true, cols = predicted): ['Claude', 'GPT', 'Gemini']
+[[103   8   3]
+ [  4  73  11]
+ [  5  31  61]]
+
+RQ2 comparison (BiLSTM, test set; chance = 0.333)
+          setting  test_accuracy  test_macro_f1  val_macro_f1  best_epoch
+Output only (RQ1)         0.7993         0.7904        0.7617          15
+       Input only         0.3478         0.3453        0.4224           1
+   Input + Output         0.7926         0.7836        0.7497           7
