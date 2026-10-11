@@ -63,7 +63,40 @@ Findings:
 
 Figures: `cnn/confusion_cnn_output.png` and `cnn/accuracy_cnn_settings.png`.
 
+## LSTM model
+
+A bidirectional LSTM in `rnn/lstm_classifier.py`:
+
+- Text is lowercased. Tokens are words (including contractions), punctuation marks and newlines, and markdown markers (bold `**`, headers `#`, code fences, numbered-list markers such as `1.`) are kept as their own tokens, so formatting is visible to the model. Numbers map to a single `<num>` token. The vocabulary is built from the training split only (at most 30,000 tokens, minimum frequency 2). Responses are truncated to 512 tokens and prompts to 128; sequences are packed, so padding never enters the LSTM.
+- 128-dimensional embedding trained from scratch, one-layer bidirectional LSTM with 128 hidden units per direction, attention pooling and max pooling over time (concatenated, 512 dimensions), then dropout 0.4, a 256-unit ReLU layer, dropout 0.4 and a linear layer with 3 outputs. For input + output, the prompt and response are joined as one sequence (`prompt <sep> response`) and read by the same LSTM.
+- AdamW, learning rate 2e-3, weight decay 1e-4, batch size 32, unweighted cross-entropy, gradient clipping at 1.0, learning rate halved when validation macro-F1 stalls for one epoch, early stopping on validation macro-F1 (patience 4), at most 15 epochs. Each setting was run once, with seed 42.
+
+## LSTM results
+
+Test set (299 examples), single run (seed 42). Chance accuracy is 0.333.
+
+| Setting | Accuracy | Macro-F1 |
+|---|---|---|
+| Output only (RQ1) | 0.799 | 0.790 |
+| Input only (RQ2) | 0.348 | 0.345 |
+| Input + output (RQ2) | 0.793 | 0.784 |
+
+Findings:
+
+- The response alone identifies the LLM about 80% of the time. Per-class F1 for the output-only LSTM is 0.95 for Claude, 0.72 for Gemini and 0.70 for GPT. Of the 60 test errors, 48 are GPT and Gemini confused with each other; 105 of the 114 Claude responses are classified correctly.
+- The prompt alone is close to chance level and adding it to the response gives no gain (0.793 vs 0.799 accuracy, a difference of two test examples).
+- The output-only model overfits after a few epochs: training macro-F1 reaches 0.98 while validation loss rises from 0.62 (epoch 3) to 1.18 (epoch 15). Validation macro-F1 still improves slowly, so early stopping keeps the last epoch.
+- The LSTM results come from one seed, so they have no error bars; the 2.3-point standard error from the test set size still applies.
+
+Figures: `rnn/results_lstm/lstm_output_confusion.png` and `rnn/results_lstm/lstm_output_curves.png` (confusion matrices and training curves for the other settings are in the same folder).
+
+## CNN vs LSTM
+
+The two models perform almost the same. For output only, the LSTM scores 0.799 accuracy and 0.790 macro-F1 against 0.803 ± 0.008 and 0.793 ± 0.009 for the CNN, and both mostly confuse GPT with Gemini. The LSTM is slightly better on Claude (0.95 vs 0.92 F1) and slightly worse on GPT and Gemini, but each difference is only a few test examples. Because the LSTM reads the whole response in order while the CNN only sees short n-gram windows, the similar results suggest that local cues such as word choice, phrasing and formatting carry most of the signal. The comparison is between the models as configured: the LSTM uses one seed, longer inputs (512 vs 256 response tokens) and lowercased text.
+
 ## How to run
+
+CNN:
 
 ```
 pip install -r cnn/requirements.txt
@@ -74,6 +107,15 @@ python analyze.py           # results table and figures
 ```
 
 Use `--mode input` or `--mode both` for the other RQ2 settings and `--ablate format`, `--ablate punct` or `--ablate length` for the RQ4 ablations.
+
+LSTM (run from the top of the repo):
+
+```
+pip install -r rnn/requirements.txt
+python rnn/lstm_classifier.py --data_dir data --out_dir rnn/results_lstm --mode all     # all three RQ2 settings, about 1.5 hours on 2 CPU cores
+```
+
+Use `--mode output`, `--mode input` or `--mode input_output` to run a single setting. Each run writes metrics, a confusion matrix and training curves to `rnn/results_lstm/`.
 
 To rebuild the dataset, open `preprocessing/Midterm_Dataset_Preprocessing.ipynb` and run all cells (it downloads the Arena data from Hugging Face).
 
