@@ -5,7 +5,7 @@ CMPSC 448 midterm project. We train neural networks to predict which LLM family 
 ## Team
 
 - Nency Patel (team leader)
-- Shreyansh
+- Shreyansh Agarwal
 - Aarav Johri
 - Jal Savani
 
